@@ -31,9 +31,9 @@ def data_load():
             pd_price= x['JCPL'].tolist()
             for i in  range(len(x)):
                 if float(pd_price[i].strip("$")) >100:
-                    pd_price[i]  =100
+                    pd_price[i]  =60/600+0.15
                 else:
-                    pd_price[i] = float(pd_price[i].strip("$"))
+                    pd_price[i] = float(pd_price[i].strip("$"))/600+0.15
         else:
             full_name = os.path.join(path,name)
 
@@ -47,22 +47,27 @@ def data_load():
 
     return pd_load,pd_price,pd_wea_wind,pd_wea_G_dir,pd_wea_G_diff,pd_wea_T,pd_wea_G_hor
 
-def price_reset(pd_price:list):
-    a =np.diff(pd_price)
-    for i in range(len(np.diff(pd_price))):
-        if abs(a[i])  >10:
-            pd_price[i+1] = pd_price[i]
+
+def H2_price():
+    x = []
+    for i in range(8760):
+
+        x.append(i)
+
+    return x
 
 
-    return pd_price
+
 
 if __name__ == '__main__':
-    pd_load,pd_price,pd_wea_wind,pd_wea_G_dir,pd_wea_G_diff,pd_wea_T ,pd_wea_G_hor= data_load()
-    pd_price1 =price_reset(pd_price)
-    dist_price = list(range(len(pd_price)))
+    pd_load,pd_ResGrid_price,pd_wea_wind,pd_wea_G_dir,pd_wea_G_diff,pd_wea_T ,pd_wea_G_hor= data_load()
+    # pd_price1 =price_reset(pd_price)
+    dist_price = list(range(len(pd_ResGrid_price)))
+    h2_price = H2_price()
+
     # plt.plot(dist_price,pd_price1)
-    plt.show()
-    plt.plot(dist_price,pd_load[:8222])
+    # plt.show()
+    plt.plot(dist_price,pd_ResGrid_price)
 
 
 
@@ -110,7 +115,7 @@ if __name__ == '__main__':
     # #
     # #
     # fig.subplots_adjust(wspace=0.5,hspace=0.5)
-    plt.savefig('load_data.svg', format='svg')
+    # plt.savefig('price_data.svg', format='svg')
 
     plt.show()
 
