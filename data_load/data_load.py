@@ -7,7 +7,7 @@ from scipy.interpolate.interpolate import make_interp_spline
 
 
 #
-# path = r"../RECO_data"
+# path = r"RECO_data"
 #
 # FileNames =os.listdir(path)
 
