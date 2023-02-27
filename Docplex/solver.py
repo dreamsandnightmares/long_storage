@@ -103,7 +103,9 @@ def min_cost(per_pv_cost,per_wind_cost,pv_om_fix,wind_om_fix,sto_charge_cost,sto
     # solution = model1.minimize(obj_om+obj_inv)
     model1.minimize(obj_inv+obj_om)
     solution  =model1.solve()
-
+    print('-------------------------------')
+    print(timeload,'timeload ')
+    print(solution.solve_details)
 
     return solution.get_value(pv_cap),solution.get_value(sto_charge),solution.get_value(sto_discharge),solution.get_value(sto_cap)\
 ,solution.get_values(grid_power),solution.get_values(sto_inj),solution.get_values(sto_wdw),solution.get_values(sto_lvl)
@@ -163,6 +165,7 @@ if __name__ == '__main__':
     plt.ylabel('Power [kwh]')
     plt.title('Battery energy')
     plt.legend()
+
 
     # plt.savefig('energy.svg', format='svg')
 
