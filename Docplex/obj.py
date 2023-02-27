@@ -73,11 +73,11 @@ def min_cost(timeload,load,gen_pv_max,gen_wind_max,sto_energy_max,sto_charge_max
     'inv cost'
     obj =sto_energy*(per_cost_sto_energy+om_sto)+gen_wind_rate*(per_cost_wind+om_wind)+gen_pv_rate*(per_cost_pv+om_pv)+sto_charge*(per_cost_sto_charge+om_ch)+sto_dis*(per_cost_sto_dis+om_dis)
     'opera cost'
-    # for i  in range(timeload):
-    #     obj2  =(x_sto_in[i]+ x_sto_wdw[i])*sto_in_po+x_fuel_in_sto[i]*res_price[i]+x_fuel_in[i]*res_price[i]
+    for i  in range(timeload):
+        obj2  =(x_sto_in[i]+ x_sto_wdw[i])*sto_in_po+x_fuel_in_sto[i]*res_price[i]+x_fuel_in[i]*res_price[i]
 
-    model_l.minimize(obj)
-    # model_l.minimize(obj + obj2)
+    # model_l.minimize(obj)
+    model_l.minimize(obj + obj2)
     solution = model_l.solve()
     return solution
 

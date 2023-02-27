@@ -115,7 +115,7 @@ if __name__ == '__main__':
     pd_load, pd_ResGrid_price, pd_wea_wind, pd_wea_G_dir, pd_wea_G_diff, pd_wea_T, pd_wea_G_hor = data_load()
 
     pv_cap,sto_charge,sto_discharge,sto_cap,grid_power,sto_inj,sto_wdw,sto_lvl =min_cost(per_pv_cost=6950,per_wind_cost=10311,pv_om_fix=1000,wind_om_fix=1000,sto_charge_cost=1743,sto_energy_cost=1190,sto_om_fix=500,sto_om=200,
-                   load=pd_load,grid_price=pd_ResGrid_price,timeload=8200,sto_discharge_cost=1743,pv_om=100,wind_om=100,res_rate=0.7
+                   load=pd_load,grid_price=pd_ResGrid_price,timeload=507,sto_discharge_cost=1743,pv_om=100,wind_om=100,res_rate=0.7
                    ,eff_dis=0.9,eff_ch=0.9)
     dis_list =list(range(len(grid_power)))
 
@@ -123,38 +123,40 @@ if __name__ == '__main__':
     PV+Grid_output
     timeload = 168
     '''
-    # x = PVSystem(P_PV_rated=pv_cap)
-    # print(len(grid_power))
-    # plt.plot(dis_list,grid_power,label ="Grid")
-    # # plt.legend()
-    # pv_power =x.draw_polt(len(grid_power))
-    # plt.plot(dis_list,pv_power,label ='PV')
-    # plt.xlabel('Time [h]')
-    # plt.ylabel('Power [kw]')
-    # plt.title('PV or grid output')
+    x = PVSystem(P_PV_rated=pv_cap)
+    print(len(grid_power))
+    plt.plot(dis_list,grid_power,label ="Grid")
     # plt.legend()
-    #
-    # plt.plot(dis_list,sto_inj,label='Battery')
-    # plt.legend()
-    # plt.show()
-    # plt.savefig('Power_output.svg', format='svg')
+    pv_power =x.draw_polt(len(grid_power))
+    plt.plot(dis_list,pv_power,label ='PV')
+    plt.xlabel('Time [h]')
+    plt.ylabel('Power [kw]')
+    plt.title('PV or grid output')
+    plt.legend()
+
+    plt.plot(dis_list,sto_inj,label='Battery')
+    plt.legend()
+
+    plt.savefig('Power_output.svg', format='svg')
+    plt.clf()
     '''
     电池充放电
     timeload =507
     '''
-    # plt.plot(dis_list,sto_inj,label='Battery_discharge')
-    #
-    # plt.xlabel('Time [h]')
-    # plt.ylabel('Power [kw]')
-    # plt.title('Battery charge/discharge')
-    # plt.legend()
-    #
-    # plt.plot(dis_list, sto_wdw, label='Battery_charge')
-    # plt.xlabel('Time [h]')
-    # plt.ylabel('Power [kw]')
-    # plt.legend()
-    # plt.show()
-    # plt.savefig('Battery.svg', format='svg')
+    plt.plot(dis_list,sto_inj,label='Battery_discharge')
+
+    plt.xlabel('Time [h]')
+    plt.ylabel('Power [kw]')
+    plt.title('Battery charge/discharge')
+    plt.legend()
+
+    plt.plot(dis_list, sto_wdw, label='Battery_charge')
+    plt.xlabel('Time [h]')
+    plt.ylabel('Power [kw]')
+    plt.legend()
+
+    plt.savefig('Battery.svg', format='svg')
+    plt.clf()
     '''
     x_lvl
     
@@ -167,7 +169,8 @@ if __name__ == '__main__':
     plt.legend()
 
 
-    # plt.savefig('energy.svg', format='svg')
+    plt.savefig('energy.svg', format='svg')
+    plt.clf()
 
 
     '''
@@ -180,7 +183,7 @@ if __name__ == '__main__':
     x = PVSystem(P_PV_rated=pv_cap)
     print(len(grid_power))
     plt.plot(dis_list,grid_power,label ="Grid")
-    # plt.legend()
+
     pv_power =x.draw_polt(len(grid_power))
     plt.plot(dis_list,pv_power,label ='PV')
     plt.xlabel('Time [h]')
@@ -190,14 +193,15 @@ if __name__ == '__main__':
 
     plt.plot(dis_list,sto_inj,label='H2')
     plt.legend()
-    plt.show()
+
     plt.savefig('H2 Power_output.svg', format='svg')
+    plt.clf()
 
 
     pv_cap,sto_charge,sto_discharge,sto_cap,grid_power,sto_inj,sto_wdw,sto_lvl =min_cost(per_pv_cost=6950,per_wind_cost=10311,pv_om_fix=1000,wind_om_fix=1000,sto_charge_cost=4200,sto_energy_cost=328,sto_om_fix=100,sto_om=50,
                    load=pd_load,grid_price=pd_ResGrid_price,timeload=507,sto_discharge_cost=1190,pv_om=100,wind_om=100,res_rate=0.7
                    ,eff_dis=0.7,eff_ch=0.90)
-
+    dis_list = list(range(len(grid_power)))
     plt.plot(dis_list,sto_inj,label='FC_discharge')
 
     plt.xlabel('Time [h]')
@@ -209,16 +213,19 @@ if __name__ == '__main__':
     plt.xlabel('Time [h]')
     plt.ylabel('Power [kw]')
     plt.legend()
-    plt.show()
+
     plt.savefig('H2.svg', format='svg')
+    plt.clf()
 
 
     pv_cap,sto_charge,sto_discharge,sto_cap,grid_power,sto_inj,sto_wdw,sto_lvl =min_cost(per_pv_cost=6950,per_wind_cost=10311,pv_om_fix=1000,wind_om_fix=1000,sto_charge_cost=4200,sto_energy_cost=328,sto_om_fix=100,sto_om=50,
-                   load=pd_load,grid_price=pd_ResGrid_price,timeload=8200,sto_discharge_cost=1190,pv_om=100,wind_om=100,res_rate=0.7
+                   load=pd_load,grid_price=pd_ResGrid_price,timeload=507,sto_discharge_cost=1190,pv_om=100,wind_om=100,res_rate=0.7
                    ,eff_dis=0.7,eff_ch=0.90)
+    dis_list = list(range(len(grid_power)))
     plt.plot(dis_list, sto_lvl, label='H2_energy')
     plt.xlabel('Time [h]')
     plt.ylabel('Power [kwh]')
     plt.title('H2 energy')
     plt.legend()
     plt.savefig('H2 Energy.svg', format='svg')
+    plt.clf()
