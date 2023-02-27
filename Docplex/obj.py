@@ -70,14 +70,16 @@ def min_cost(timeload,load,gen_pv_max,gen_wind_max,sto_energy_max,sto_charge_max
     # model_l.minimize(model_l.sum(x_sto_in[i]) for i in range(timeload))
 
 
+    'inv cost'
+    obj =sto_energy*(per_cost_sto_energy+om_sto)+gen_wind_rate*(per_cost_wind+om_wind)+gen_pv_rate*(per_cost_pv+om_pv)+sto_charge*(per_cost_sto_charge+om_ch)+sto_dis*(per_cost_sto_dis+om_dis)
+    'opera cost'
+    # for i  in range(timeload):
+    #     obj2  =(x_sto_in[i]+ x_sto_wdw[i])*sto_in_po+x_fuel_in_sto[i]*res_price[i]+x_fuel_in[i]*res_price[i]
 
-    obj2 =sto_energy*(per_cost_sto_energy+om_sto)+gen_wind_rate*(per_cost_wind+om_wind)+gen_pv_rate*(per_cost_pv+om_pv)+sto_charge*(per_cost_sto_charge+om_ch)+sto_dis*(per_cost_sto_dis+om_dis)
-    for i  in range(timeload):
-        obj  =(x_sto_in[i]+ x_sto_wdw[i])*sto_in_po
-
-    model_l.minimize(obj+obj2)
-
-    return model_l
+    model_l.minimize(obj)
+    # model_l.minimize(obj + obj2)
+    solution = model_l.solve()
+    return solution
 
 
 
@@ -86,7 +88,9 @@ def min_cost(timeload,load,gen_pv_max,gen_wind_max,sto_energy_max,sto_charge_max
 if __name__ == '__main__':
     pd_load, pd_ResGrid_price, pd_wea_wind, pd_wea_G_dir, pd_wea_G_diff, pd_wea_T, pd_wea_G_hor = data_load()
 
-    min_cost(timeload= 507,gen_pv_max=2000,gen_wind_max=2000,sto_energy_max=5000,sto_charge_max=3000,load=pd_load,
+    min = min_cost(timeload= 20,gen_pv_max=2000,gen_wind_max=2000,sto_energy_max=5000,sto_charge_max=3000,load=pd_load,
     sto_dis_max=3000,k_down=0.9,k_up=0.9,min_power=0.2,max_power=2,eff_dis=0.9,eff_ch=0.9,max_h=300,min_h=0,per_cost_sto_dis=1000,per_cost_sto_charge=1000,per_cost_sto_energy=1000,per_cost_wind=5000,per_cost_pv=6000,om_wind=100,om_dis=100,om_sto=100,om_ch=100,om_pv=100
              ,res_price=pd_ResGrid_price,sto_in_po=10)
+
+    print(min )
 

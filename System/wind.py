@@ -1,8 +1,8 @@
 from data_load.data_load import data_load
 import math
 import matplotlib.pyplot as plt
-
-def windpower(windspeed,power_rated):
+pd_load,pd_price,pd_wea_wind,pd_wea_G_dir,pd_wea_G_diff,pd_wea_T ,pd_wea_G_hor= data_load()
+def windpower(power_rated):
     V_wind =[]
     h_WT =30
     h_ref =10
@@ -11,7 +11,7 @@ def windpower(windspeed,power_rated):
     V_wind_co =25
     V_wind_wr = 13
     wind_power = []
-
+    windspeed  =pd_wea_wind
 
 
     for i in range(len(windspeed)):
@@ -33,7 +33,7 @@ def windpower(windspeed,power_rated):
 if __name__ == '__main__':
     pd_load, pd_price, pd_wea_wind, pd_wea_G_dir, pd_wea_G_diff, pd_wea_T, pd_wea_G_hor = data_load()
     print(pd_wea_wind)
-    wind_power =windpower(pd_wea_wind,power_rated=200)
+    wind_power =windpower(power_rated=200)
     dist = list(range(len(wind_power)))
     plt.plot(dist,wind_power)
     plt.xlabel("time")

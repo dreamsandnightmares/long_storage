@@ -33,6 +33,11 @@ class PVSystem(object):
         P_PV = f_PV*self.P_PV_rated*(float(G))/G_STC*(1+gammaT*(T_cell-T_cell_STC))/1000
 
         return P_PV
+    def draw_polt(self,time_load):
+        a  =[]
+        for i  in range(time_load):
+            a.append(self.PVpower(i))
+        return a
 
 if __name__ == '__main__':
     x = PVSystem(P_PV_rated=220)

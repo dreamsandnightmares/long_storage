@@ -6,7 +6,7 @@ import numpy as np
 from scipy.interpolate.interpolate import make_interp_spline
 
 
-#
+# #
 # path = r"RECO_data"
 #
 # FileNames =os.listdir(path)
@@ -24,6 +24,8 @@ def data_load():
             full_name =os.path.join(path,name)
             pd_load =pd.read_csv(full_name,encoding='utf-8')
             pd_load = pd_load['mw'].tolist()
+            for i in range(len(pd_load)):
+                pd_load[i] = pd_load[i]/3
         elif re.search('jcpl',name):
             full_name = os.path.join(path, name)
             data = pd.read_csv(full_name,encoding='utf-8')
@@ -68,6 +70,7 @@ if __name__ == '__main__':
     # plt.plot(dist_price,pd_price1)
     # plt.show()
     plt.plot(dist_price,pd_ResGrid_price)
+    print(sum(pd_load))
 
 
 
